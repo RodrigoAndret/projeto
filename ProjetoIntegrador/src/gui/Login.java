@@ -1,4 +1,4 @@
-package gui;
+package design;
 
 import java.awt.EventQueue;
 
@@ -15,13 +15,22 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class Login extends JFrame {
+	
+	String DB_URL = "jdbc:mysql://127.0.0.1:3306/vota";
+	String USER = "root";
+	String PASS = "root";
 
 	private JPanel contentPane;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JPasswordField cpf;
+	private JPasswordField senha;
 
 	/**
 	 * Launch the application.
@@ -59,13 +68,43 @@ public class Login extends JFrame {
 		JButton btnFazerLogin = new JButton("Fazer Login");
 		btnFazerLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (cpf não está cadastrado ou digitado incorretamente ou senha incorreta) {
-					JOptionPane.showMessageDialog(null, "Credenciais incorretas!");
+				
+				String cpf_adms = "123";
+				String senha_adms = "adms";
+				String cpf_testando = cpf.getText();
+				String senha_testando = senha.getText();
+				boolean valido = false;
+				
+				String QUERY = "SELECT cpf_usuario, senha FROM usuarios";
+				
+				try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				         Statement stmt = conn.createStatement();
+				         ResultSet rs = stmt.executeQuery(QUERY);
+				      ) {		      
+				         while(rs.next()){
+				        	 
+				            if((rs.getString("cpf_usuario").equals(cpf_testando)) && (rs.getString("senha").equals(senha_testando))) {
+				            	valido = true;
+				            };
+				            
+				         }
+				      } catch (SQLException e1) {
+				         e1.printStackTrace();
+				      }
+				
+				if (valido == true/*cpf não está cadastrado ou digitado incorretamente ou senha incorreta*/) {
+					if ((cpf_testando.equals(cpf_adms)) && (senha_testando.equals(senha_adms))) {
+						MenuAdm menuAdm = new MenuAdm();
+						menuAdm.setVisible(true);
+						dispose();
+					}else {
+					Menu menu = new Menu();
+					menu.setVisible(true);
+					dispose();
+					}
 				}
 				else {
-				Menu menu = new Menu();
-				menu.setVisible(true);
-				dispose();
+					JOptionPane.showMessageDialog(null, "Credenciais incorretas!");
 				}
 			}
 			
@@ -84,20 +123,20 @@ public class Login extends JFrame {
 		lblCpf_1.setBounds(167, 166, 230, 48);
 		contentPane.add(lblCpf_1);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		passwordField.setBounds(86, 225, 390, 32);
-		contentPane.add(passwordField);
+		cpf = new JPasswordField();
+		cpf.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		cpf.setBounds(86, 225, 390, 32);
+		contentPane.add(cpf);
 		
 		JLabel lblSenha_1 = new JLabel("Digite a senha desejada:");
 		lblSenha_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblSenha_1.setBounds(93, 308, 383, 48);
 		contentPane.add(lblSenha_1);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		passwordField_1.setBounds(86, 367, 390, 32);
-		contentPane.add(passwordField_1);
+		senha = new JPasswordField();
+		senha.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		senha.setBounds(86, 367, 390, 32);
+		contentPane.add(senha);
 		
 		JButton btnCadastrarse = new JButton("Cadastrar-se");
 		btnCadastrarse.addActionListener(new ActionListener() {

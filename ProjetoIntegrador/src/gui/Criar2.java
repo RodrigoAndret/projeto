@@ -1,4 +1,4 @@
-package gui;
+package design;
 
 import java.awt.EventQueue;
 
@@ -16,6 +16,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.Cursor;
 
 public class Criar2 extends JFrame {
 
@@ -65,6 +68,7 @@ public class Criar2 extends JFrame {
 		contentPane.add(secaoCriar);
 		
 		JLabel insiraOpcoes = new JLabel("Insira as opções da sua votação:");
+		insiraOpcoes.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		insiraOpcoes.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		insiraOpcoes.setBounds(44, 117, 489, 39);
 		contentPane.add(insiraOpcoes);
@@ -91,31 +95,8 @@ public class Criar2 extends JFrame {
 		opcao2.setBounds(71, 256, 473, 38);
 		contentPane.add(opcao2);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(661, 165, 30, 342);
-		contentPane.add(scrollBar);
-		
-		JButton adicionarOpcao = new JButton("+");
-		adicionarOpcao.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		adicionarOpcao.setBounds(822, 235, 76, 59);
-		contentPane.add(adicionarOpcao);
-		
-		JLabel lblNewLabel_3_2 = new JLabel("Adicionar opção");
-		lblNewLabel_3_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_3_2.setBounds(795, 302, 149, 26);
-		contentPane.add(lblNewLabel_3_2);
-		
-		JButton excluir1 = new JButton("Excluir");
-		excluir1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		excluir1.setBounds(554, 199, 89, 23);
-		contentPane.add(excluir1);
-		
-		JButton excluir2 = new JButton("Excluir");
-		excluir2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		excluir2.setBounds(554, 262, 89, 23);
-		contentPane.add(excluir2);
-		
 		JButton voltar = new JButton("< Voltar");
+		voltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		voltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Criar1 criar1 = new Criar1();
@@ -128,6 +109,7 @@ public class Criar2 extends JFrame {
 		contentPane.add(voltar);
 		
 		JButton criar = new JButton("Criar >>");
+		criar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		criar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -137,8 +119,8 @@ public class Criar2 extends JFrame {
 				
 				else {
 				JOptionPane.showMessageDialog(null, "Votação criada com sucesso!");
-//				Menu menu = new Menu();
-//				menu.setVisible(true);
+				Menu menu = new Menu();
+				menu.setVisible(true);
 				dispose();
 				}
 				

@@ -22,7 +22,7 @@ import java.sql.Statement;
 
 public class Filtrar extends JFrame {
 	
-	String DB_URL = "jdbc:mysql://127.0.0.1:3306/escola";
+	String DB_URL = "jdbc:mysql://127.0.0.1:3306/vota";
 	String USER = "root";
 	String PASS = "root";
 
@@ -203,14 +203,14 @@ public class Filtrar extends JFrame {
 				String PalavraChave = txtPalavraChave.getText();
 					// POP UP OPCIONAL:  JOptionPane.showMessageDialog(null, "Busca realizada");
 					// depois precisa adaptar para o real banco de dados
-					String QUERY = "SELECT nome FROM votacoes WHERE nome like '%" + PalavraChave + "%'";
+					String QUERY = "SELECT titulo FROM votacao WHERE titulo like '%" + PalavraChave + "%'";
 					try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 					         Statement stmt = conn.createStatement();
 					         ResultSet rs = stmt.executeQuery(QUERY);
 					      ) {		      
 					         while(rs.next()){
 					            //MOSTRAR INFOS DA VOTAÇÃO
-					            System.out.printf(rs.getString("nome")+ "\n");
+					            System.out.printf(rs.getString("titulo")+ "\n");
 					            
 					         }
 					      } catch (SQLException e1) {

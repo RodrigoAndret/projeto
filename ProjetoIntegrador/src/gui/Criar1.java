@@ -1,4 +1,4 @@
-package gui;
+package design;
 
 import java.awt.EventQueue;
 
@@ -73,6 +73,13 @@ public class Criar1 extends JFrame {
 		contentPane.add(tema);
 		
 		JButton Voltar = new JButton("< Voltar");
+		Voltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu menu = new Menu();
+				menu.setVisible(true);
+				dispose();
+			}
+		});
 		Voltar.setBounds(10, 547, 125, 33);
 		Voltar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(Voltar);

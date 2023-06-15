@@ -1,10 +1,13 @@
-package gui;
+package design;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+//import com.mysql.cj.xdevapi.Statement;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -13,13 +16,25 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Cadastro extends JFrame {
+	
+	String DB_URL = "jdbc:mysql://127.0.0.1:3306/vota";
+	String USER = "root";
+	String PASS = "root";
 
 	private JPanel contentPane;
-	private JPasswordField passwordField_1;
-	private JPasswordField passwordField;
+	private JPasswordField senha;
+	private JPasswordField cpf;
 
 	/**
 	 * Launch the application.
@@ -62,6 +77,23 @@ public class Cadastro extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar >>");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+		
+				String cadastro_cpf = cpf.getText();
+				String cadastro_senha = senha.getText();
+				
+				try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				         Statement stmt = conn.createStatement();
+				      ) {		      
+				         // Execute a query
+				         System.out.println("Inserindo dados em tabela");
+				         
+				         String sql = "INSERT INTO usuarios VALUES ('"+cadastro_cpf+"','"+cadastro_senha+"')";
+				         
+				         stmt.executeUpdate(sql);  	  
+				      } catch (SQLException e1) {
+				         e1.printStackTrace();
+				      } 
+				
 				JOptionPane.showMessageDialog(null, "Cadastro realizado!");
 								
 				Login login = new Login();
@@ -75,10 +107,10 @@ public class Cadastro extends JFrame {
 		btnCadastrar.setBounds(763, 539, 171, 32);
 		contentPane.add(btnCadastrar);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		passwordField_1.setBounds(237, 347, 390, 32);
-		contentPane.add(passwordField_1);
+		senha = new JPasswordField();
+		senha.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		senha.setBounds(237, 347, 390, 32);
+		contentPane.add(senha);
 		
 		JLabel lblCriarVotao = new JLabel("Cadastro");
 		lblCriarVotao.setForeground(new Color(0, 0, 0));
@@ -103,10 +135,10 @@ public class Cadastro extends JFrame {
 		btnNewButton_1.setBounds(26, 539, 136, 32);
 		contentPane.add(btnNewButton_1);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		passwordField.setBounds(237, 205, 390, 32);
-		contentPane.add(passwordField);
+		cpf = new JPasswordField();
+		cpf.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		cpf.setBounds(237, 205, 390, 32);
+		contentPane.add(cpf);
 	}
 
 }

@@ -18,7 +18,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Menu extends JFrame {
+public class MenuAdm extends JFrame {
 
 	private JPanel contentPane;
 	private JTextPane txtpnSejaBemVindo;
@@ -44,7 +44,7 @@ public class Menu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Menu() {
+	public MenuAdm() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 650);
 		contentPane = new JPanel();
@@ -66,15 +66,30 @@ public class Menu extends JFrame {
 		btnNewButton_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 22));
 		btnNewButton_1_1.setBackground(new Color(225, 81, 96));
-		btnNewButton_1_1.setBounds(57, 284, 380, 300);
+		btnNewButton_1_1.setBounds(57, 284, 262, 300);
 		contentPane.add(btnNewButton_1_1);
+		
+		JButton btnNewButton_1 = new JButton("CRIAR VOTAÇÃO");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Criar1 c1 = new Criar1();
+				c1.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setOpaque(true);
+		btnNewButton_1.setForeground(Color.WHITE);
+		btnNewButton_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 22));
+		btnNewButton_1.setBackground(new Color(0, 128, 192));
+		btnNewButton_1.setBounds(351, 284, 262, 300);
+		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton = new JButton("VOTAR");
 		btnNewButton.setOpaque(true);
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 22));
 		btnNewButton.setBackground(new Color(0, 128, 64));
-		btnNewButton.setBounds(506, 284, 400, 300);
+		btnNewButton.setBounds(644, 284, 262, 300);
 		contentPane.add(btnNewButton);
 		
 		txtpnSejaBemVindo = new JTextPane();
