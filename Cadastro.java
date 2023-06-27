@@ -96,9 +96,14 @@ public class Cadastro extends JFrame {
 		JButton btnCadastrar = new JButton("Cadastrar >>");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				String cadastro_cpf = cpf.getText();
+				
+				String cadastro_cpf = cpf.getText().replaceAll("-", "").replaceAll("/", "").replaceAll("\\.", "").replaceAll("\\s", "");
 				String cadastro_senha = senha.getText();
+				
+				if (cpf.getText().equals("") || senha.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
+				}
+				else {
 
 				try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
@@ -119,8 +124,7 @@ public class Cadastro extends JFrame {
 				Login login = new Login();
 				login.setVisible(true);
 				dispose();
-
-
+				}
 			}
 		});
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -129,7 +133,7 @@ public class Cadastro extends JFrame {
 
 		senha = new JPasswordField();
 		senha.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		senha.setBounds(237, 347, 390, 32);
+		senha.setBounds(244, 347, 390, 32);
 		contentPane.add(senha);
 
 		JLabel lblCriarVotao = new JLabel("Cadastro");
@@ -157,6 +161,11 @@ public class Cadastro extends JFrame {
 		textPane.setBackground(SystemColor.menu);
 		textPane.setBounds(10, 36, 964, 20);
 		contentPane.add(textPane);
+		
+		JLabel lblCpf_1_1 = new JLabel("(Somente números)");
+		lblCpf_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCpf_1_1.setBounds(357, 246, 155, 20);
+		contentPane.add(lblCpf_1_1);
 
 	}
 }

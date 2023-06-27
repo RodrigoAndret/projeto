@@ -71,6 +71,17 @@ public class MenuAdm extends JFrame {
 		btnCriarVotao.setBackground(new Color(0, 0, 255));
 		btnCriarVotao.setBounds(496, 258, 400, 300);
 		contentPane.add(btnCriarVotao);
+		
+		JButton btnNewButton = new JButton("< Trocar usuário");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login l = new Login();
+				l.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton.setBounds(10, 11, 169, 31);
+		contentPane.add(btnNewButton);
 	}
-
 }

@@ -89,5 +89,17 @@ public class Menu extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 52));
 		lblNewLabel.setBounds(203, 110, 536, 62);
 		contentPane.add(lblNewLabel);
+		
+		JButton btnNewButton_1 = new JButton("< Trocar usuário");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login l = new Login();
+				l.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnNewButton_1.setBounds(10, 11, 169, 31);
+		contentPane.add(btnNewButton_1);
 	}
 }

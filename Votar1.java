@@ -2,6 +2,7 @@ package design;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -40,18 +41,20 @@ import javax.swing.border.SoftBevelBorder;
 import java.awt.ComponentOrientation;
 import javax.swing.ScrollPaneConstants;
 import java.awt.GridLayout;
+import java.awt.ScrollPane;
+import java.awt.Panel;
 
 public class Votar1 extends JFrame {
-	
-	
-	
+
+
+
 	String DB_URL = "jdbc:mysql://127.0.0.1:3306/vota";
 	String USER = "root";
 	String PASS = "root";
 	int i = 0;
 	List <String> votacoes = new ArrayList();
 	int y  = 150;
-	
+
 
 	private JPanel contentPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -75,24 +78,24 @@ public class Votar1 extends JFrame {
 	 * Create the frame.
 	 */
 	public Votar1() {
-		
+
 		JList list = new JList();
-		
+
 		String QUERY = "SELECT titulo FROM votacao";
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-		         Statement stmt = conn.createStatement();
-		         ResultSet rs = stmt.executeQuery(QUERY);
-		      ) {		      
-		         while(rs.next()){
-		        	 
-		            //MOSTRAR INFOS DA VOTAÇÃO
-		            System.out.printf(rs.getString("titulo")+ "\n");
-		            votacoes.add(rs.getString("titulo"));
-		         }
-		      } catch (SQLException e1) {
-		         e1.printStackTrace();
-		      }
-		
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(QUERY);
+				) {		      
+			while(rs.next()){
+
+				//MOSTRAR INFOS DA VOTAÇÃO
+				System.out.printf(rs.getString("titulo")+ "\n");
+				votacoes.add(rs.getString("titulo"));
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 650);
 		contentPane = new JPanel();
@@ -130,12 +133,12 @@ public class Votar1 extends JFrame {
 		contentPane.add(lblNewLabel_2);
 
 		JButton[] botoes = new JButton[votacoes.size()];
-		
+
 		JPanel p = new JPanel();
 		p.setDoubleBuffered(false);
 		p.setEnabled(false);
-		p.setLayout(new GridLayout(0, 1));// tentano mudar o layout para ver se adiciona outras linhas
-		
+		p.setLayout(new GridLayout(0, 1));// tentando mudar o layout para ver se adiciona outras linhas
+
 		for(String votacao:votacoes) {
 			botoes[i] = new JButton(votacao);
 			botoes[i].setBounds(240, y, 501, 58);
@@ -154,11 +157,34 @@ public class Votar1 extends JFrame {
 			y+=75;
 			i++;
 		};
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane(p);
 		scrollPane_1.setBounds(150, 150, 700, 400);
 		contentPane.add(scrollPane_1);
 		
+		Panel scrollPane = new Panel();
+		scrollPane.setBounds(37, 206, 100, 136);
+		contentPane.add(scrollPane);
+		
+		for(String opcao:opcoes) {
+			botoes[i] = new JButton(opcao);
+			botoes[i].setBounds(240, y, 501, 58);
+			botoes[i].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					Votar2 v2 = new Votar2();
+					v2.setVisible(true);
+					dispose();
+				}
+			});
+			botoes[i].setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			botoes[i].setFont(new Font("Verdana", Font.PLAIN, 21));
+			contentPane.add(botoes[i]);
+			p.add(botoes[i]);
+			p.add(new JLabel(""));
+			y+=75;
+			i++;
+		};
+
 
 	}
 }

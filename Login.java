@@ -5,11 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+
 import java.awt.Color;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -20,6 +23,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.awt.event.ActionEvent;
 
 
@@ -31,8 +35,9 @@ public class Login extends JFrame {
 	String PASS = "root";
 
 	private JPanel contentPane;
-	private JPasswordField cpf;
 	private JPasswordField senha;
+//	private MaskFormatter mascaraCpf;
+	private JTextField cpf;
 
 	/**
 	 * Launch the application.
@@ -78,6 +83,7 @@ public class Login extends JFrame {
 				boolean valido = false;
 
 				String QUERY = "SELECT cpf_usuario, senha FROM usuarios";
+				
 
 				try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				         Statement stmt = conn.createStatement();
@@ -124,8 +130,20 @@ public class Login extends JFrame {
 		lblCpf_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblCpf_1.setBounds(167, 166, 230, 48);
 		contentPane.add(lblCpf_1);
-
-		cpf = new JPasswordField();
+		
+//		// campo cpf
+//		try {
+//			mascaraCpf = new MaskFormatter("###.###.###-##");
+//		} catch (ParseException e1) {
+//			e1.printStackTrace();
+//		}
+//		
+//		// formatador do campo de cpf
+//		JFormattedTextField cpf = new JFormattedTextField(mascaraCpf);
+//		cpf.setBounds(244, 215, 383, 32);
+//		contentPane.add(cpf);
+		
+		cpf = new JTextField();
 		cpf.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		cpf.setBounds(86, 225, 390, 32);
 		contentPane.add(cpf);
