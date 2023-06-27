@@ -108,7 +108,7 @@ public class Testar extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		JLabel lblVotaesDisponveis = new JLabel("VOTAÇÕES ANTERIORES");
-		lblVotaesDisponveis.setBounds(105, 90, 326, 36);
+		lblVotaesDisponveis.setBounds(37, 90, 326, 36);
 		lblVotaesDisponveis.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVotaesDisponveis.setFont(new Font("Tahoma", Font.BOLD, 20));
 		contentPane.add(lblVotaesDisponveis);
@@ -131,11 +131,6 @@ public class Testar extends JFrame {
 
 		JButton[] botoes = new JButton[votacoes.size()];
 		
-		JPanel p = new JPanel();
-		p.setDoubleBuffered(false);
-		p.setEnabled(false);
-		p.setLayout(new GridLayout(0, 1));
-		
 		for(String votacao:votacoes) {
 			botoes[i] = new JButton(votacao);
 			botoes[i].setBounds(240, y, 501, 58);
@@ -155,10 +150,6 @@ public class Testar extends JFrame {
 			i++;
 		};
 		
-		JScrollPane scrollPane_1 = new JScrollPane(p);
-		scrollPane_1.setBounds(150, 150, 700, 400);
-		contentPane.add(scrollPane_1);
-		
 		JButton btnNewButton = new JButton("FILTRAR VOTAÇÕES");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -174,8 +165,16 @@ public class Testar extends JFrame {
 		btnNewButton.setBounds(796, 40, 178, 44);
 		contentPane.add(btnNewButton);
 		
+		JPanel p = new JPanel();
+		p.setBounds(60, 152, 400, 350);
+		contentPane.add(p);
+		p.setDoubleBuffered(false);
+		p.setEnabled(false);
+		p.setLayout(new GridLayout(0, 1));
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		p.add(scrollPane_1);
+		
 
 	}
 }
-
-
