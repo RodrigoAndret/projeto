@@ -25,7 +25,7 @@ import java.awt.event.ActionEvent;
 
 
 public class Login extends JFrame {
-	
+
 	String DB_URL = "jdbc:mysql://127.0.0.1:3306/vota";
 	String USER = "root";
 	String PASS = "root";
@@ -61,40 +61,40 @@ public class Login extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("V.O.T.A.");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 48));
 		lblNewLabel.setBounds(368, 11, 212, 84);
 		contentPane.add(lblNewLabel);
-		
+
 		JButton btnFazerLogin = new JButton("Fazer Login");
 		btnFazerLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String cpf_adms = "123";
 				String senha_adms = "adms";
 				String cpf_testando = cpf.getText();
 				String senha_testando = senha.getText();
 				boolean valido = false;
-				
+
 				String QUERY = "SELECT cpf_usuario, senha FROM usuarios";
-				
+
 				try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				         Statement stmt = conn.createStatement();
 				         ResultSet rs = stmt.executeQuery(QUERY);
 				      ) {		      
 				         while(rs.next()){
-				        	 
+
 				            if((rs.getString("cpf_usuario").equals(cpf_testando)) && (rs.getString("senha").equals(senha_testando))) {
 				            	valido = true;
 				            };
-				            
+
 				         }
 				      } catch (SQLException e1) {
 				         e1.printStackTrace();
 				      }
-				
-				if (valido == true/*cpf não está cadastrado ou digitado incorretamente ou senha incorreta*/) {
+
+				if (valido == true) {
 					if ((cpf_testando.equals(cpf_adms)) && (senha_testando.equals(senha_adms))) {
 						MenuAdm menuAdm = new MenuAdm();
 						menuAdm.setVisible(true);
@@ -109,37 +109,37 @@ public class Login extends JFrame {
 					JOptionPane.showMessageDialog(null, "Credenciais incorretas!");
 				}
 			}
-			
+
 		});
 		btnFazerLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnFazerLogin.setBounds(193, 410, 167, 32);
 		contentPane.add(btnFazerLogin);
-		
+
 		JLabel lblvotaoOfflineTransparente = new JLabel("(Votação Offline Transparente e Acessível)");
 		lblvotaoOfflineTransparente.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblvotaoOfflineTransparente.setBounds(271, 92, 393, 25);
 		contentPane.add(lblvotaoOfflineTransparente);
-		
+
 		JLabel lblCpf_1 = new JLabel("Digite seu CPF:");
 		lblCpf_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblCpf_1.setBounds(167, 166, 230, 48);
 		contentPane.add(lblCpf_1);
-		
+
 		cpf = new JPasswordField();
 		cpf.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		cpf.setBounds(86, 225, 390, 32);
 		contentPane.add(cpf);
-		
-		JLabel lblSenha_1 = new JLabel("Digite a senha desejada:");
+
+		JLabel lblSenha_1 = new JLabel("Digite sua senha:");
 		lblSenha_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		lblSenha_1.setBounds(93, 308, 383, 48);
+		lblSenha_1.setBounds(151, 317, 267, 39);
 		contentPane.add(lblSenha_1);
-		
+
 		senha = new JPasswordField();
 		senha.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		senha.setBounds(86, 367, 390, 32);
 		contentPane.add(senha);
-		
+
 		JButton btnCadastrarse = new JButton("Cadastrar-se");
 		btnCadastrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -147,12 +147,12 @@ public class Login extends JFrame {
 				cadastro.setVisible(true);
 				dispose();
 			}
-			
+
 		});
 		btnCadastrarse.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnCadastrarse.setBounds(644, 321, 178, 32);
 		contentPane.add(btnCadastrarse);
-		
+
 		JLabel lblCpf_1_1 = new JLabel("Não possui cadastro?");
 		lblCpf_1_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblCpf_1_1.setBounds(599, 254, 317, 48);

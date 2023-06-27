@@ -113,8 +113,8 @@ public class Votar1 extends JFrame {
 		lblVotaesDisponveis.setFont(new Font("Tahoma", Font.BOLD, 20));
 		contentPane.add(lblVotaesDisponveis);
 
-		JButton btnNewButton_1_1 = new JButton("<");
-		btnNewButton_1_1.setBounds(29, 544, 67, 56);
+		JButton btnNewButton_1_1 = new JButton("< Voltar");
+		btnNewButton_1_1.setBounds(29, 562, 108, 38);
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Menu menu = new Menu();
@@ -122,7 +122,7 @@ public class Votar1 extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(btnNewButton_1_1);
 
 		JLabel lblNewLabel_2 = new JLabel("_______________________________________________________________________________________________________________________");
@@ -162,5 +162,3 @@ public class Votar1 extends JFrame {
 
 	}
 }
-
-

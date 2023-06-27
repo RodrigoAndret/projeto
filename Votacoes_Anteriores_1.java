@@ -19,25 +19,18 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
-import java.util.Date;
+
+
 
 public class Votacoes_Anteriores_1 extends JFrame {
 	
-	String DB_URL = "jdbc:mysql://127.0.0.1:3306/vota";
+	String DB_URL = "jdbc:mysql://127.0.0.1:3306/escola";
 	String USER = "root";
 	String PASS = "root";
-	int i = 0;
-	List <String> votacoes = new ArrayList();
-	List <String> datas = new ArrayList();
-	int y  = 150;
-	//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	//String dataAtual = dtf.format(LocalDateTime.now());
 
 	private JPanel contentPane;
 
@@ -62,20 +55,19 @@ public class Votacoes_Anteriores_1 extends JFrame {
 	 */
 	public Votacoes_Anteriores_1() {
 		
-		String QUERY = "SELECT titulo,data_final,data_votacao FROM votacao";
+		// pegando o nome das votações
+		String QUERY = "SELECT nome FROM votacoes";
+		ArrayList<String> nomes = new ArrayList<String>();
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		         Statement stmt = conn.createStatement();
 		         ResultSet rs = stmt.executeQuery(QUERY);
-		      ) {		      
+		      ) {	
+			
+				
 		         while(rs.next()){
-		        	
-		        	//String data_final = rs.getString("data_final");
-		        	//int ret = dataAtual.compareTo(data_final);
-		        	//if(ret < 0) {
-		            System.out.printf(rs.getString("titulo")+ "\n");
-		            votacoes.add(rs.getString("titulo"));
-		            datas.add(rs.getString("data_votacao"));
-		        	//}
+		            //PEGAR INFOS DA VOTAÇÃO E BOTAR EM UMA LISTA, QUE DEPOIS SERA LIDA		            
+		            nomes.add(rs.getString("nome"));
+		            
 		         }
 		      } catch (SQLException e1) {
 		         e1.printStackTrace();
@@ -106,23 +98,57 @@ public class Votacoes_Anteriores_1 extends JFrame {
 		btnNewButton.setBounds(779, 68, 171, 39);
 		contentPane.add(btnNewButton);
 		
-		JButton[] botoes = new JButton[votacoes.size()];
-		int x = 15;
-		for(String votacao:votacoes) {
-			
-			botoes[i] = new JButton(votacao);
-			botoes[i].setBounds(x, y, 450, 57);
-			botoes[i].setHorizontalAlignment(SwingConstants.LEFT);
-			botoes[i].setFont(new Font("Tahoma", Font.PLAIN, 30));
-			contentPane.add(botoes[i]);
-			if (y== 450 ) {
-				x=500;
-				y = 75;
+		JButton btnNewButton_1 = new JButton("°Votação 1*requisição BD*");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Votacoes_Anteriores_2 v2 = new Votacoes_Anteriores_2();
+				v2.setVisible(true);
+				dispose();
 			}
-			//p.add(botoes[i]);
-			y+=75;
-			i++;
-		};
+		});
+		btnNewButton_1.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnNewButton_1.setBounds(10, 179, 950, 57);
+		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("°Votação 2*requisição BD*");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Votacoes_Anteriores_2 v2 = new Votacoes_Anteriores_2();
+				v2.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_2.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnNewButton_2.setBounds(10, 258, 950, 57);
+		contentPane.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("°Votação 3*requisição BD*");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Votacoes_Anteriores_2 v2 = new Votacoes_Anteriores_2();
+				v2.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_3.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnNewButton_3.setBounds(10, 340, 950, 57);
+		contentPane.add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("°Votação 4*requisição BD*");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Votacoes_Anteriores_2 v2 = new Votacoes_Anteriores_2();
+				v2.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_4.setHorizontalAlignment(SwingConstants.LEFT);
+		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btnNewButton_4.setBounds(10, 418, 950, 57);
+		contentPane.add(btnNewButton_4);
 		
 		JButton voltar = new JButton("< Voltar");
 		voltar.addActionListener(new ActionListener() {
@@ -140,10 +166,10 @@ public class Votacoes_Anteriores_1 extends JFrame {
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setText("____________________________________________________________________________________________________________________________________________________________");
-		textPane.setForeground(new Color(255, 0, 0));
+		textPane.setForeground(new Color(0, 0, 0));
 		textPane.setEditable(false);
 		textPane.setBackground(SystemColor.menu);
-		textPane.setBounds(10, 44, 964, 20);
+		textPane.setBounds(10, 37, 964, 20);
 		contentPane.add(textPane);
 		
 		JLabel lblNewLabel = new JLabel("Consultar votações");

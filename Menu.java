@@ -15,15 +15,16 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class Menu extends JFrame {
 
+	
 	private JPanel contentPane;
-	private JTextPane txtpnSejaBemVindo;
-	private JTextPane txtpnSelecioneAOpo;
-	private JTextPane textPane;
 
 	/**
 	 * Launch the application.
@@ -46,9 +47,9 @@ public class Menu extends JFrame {
 	 */
 	public Menu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 650);
+		setBounds(450, 200, 1000, 650);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(192, 192, 192));
+		contentPane.setBackground(new Color(240, 240, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -72,8 +73,8 @@ public class Menu extends JFrame {
 		JButton btnNewButton = new JButton("VOTAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Votar1 v1 = new Votar1();
-				v1.setVisible(true);
+				Votar1 votar1 = new Votar1();
+				votar1.setVisible(true);
 				dispose();
 			}
 		});
@@ -84,31 +85,9 @@ public class Menu extends JFrame {
 		btnNewButton.setBounds(506, 284, 400, 300);
 		contentPane.add(btnNewButton);
 		
-		txtpnSejaBemVindo = new JTextPane();
-		txtpnSejaBemVindo.setText("Seja Bem Vindo!");
-		txtpnSejaBemVindo.setForeground(new Color(0, 0, 0));
-		txtpnSejaBemVindo.setFont(new Font("Swis721 Cn BT", Font.PLAIN, 52));
-		txtpnSejaBemVindo.setEditable(false);
-		txtpnSejaBemVindo.setBackground(Color.LIGHT_GRAY);
-		txtpnSejaBemVindo.setBounds(289, 52, 441, 89);
-		contentPane.add(txtpnSejaBemVindo);
-		
-		txtpnSelecioneAOpo = new JTextPane();
-		txtpnSelecioneAOpo.setText("Selecione a opção desejada");
-		txtpnSelecioneAOpo.setForeground(Color.BLACK);
-		txtpnSelecioneAOpo.setFont(new Font("Swis721 Cn BT", Font.BOLD, 52));
-		txtpnSelecioneAOpo.setEditable(false);
-		txtpnSelecioneAOpo.setBackground(Color.LIGHT_GRAY);
-		txtpnSelecioneAOpo.setBounds(175, 152, 611, 76);
-		contentPane.add(txtpnSelecioneAOpo);
-		
-		textPane = new JTextPane();
-		textPane.setText("____________________________________________________________________________________________________________________________________________________________");
-		textPane.setForeground(new Color(0, 0, 0));
-		textPane.setEditable(false);
-		textPane.setBackground(Color.LIGHT_GRAY);
-		textPane.setBounds(20, 231, 964, 20);
-		contentPane.add(textPane);
+		JLabel lblNewLabel = new JLabel("Selecione uma opção:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 52));
+		lblNewLabel.setBounds(203, 110, 536, 62);
+		contentPane.add(lblNewLabel);
 	}
-
 }

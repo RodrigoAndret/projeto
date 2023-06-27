@@ -23,7 +23,7 @@ import java.awt.SystemColor;
 
 public class Votacoes_Anteriores_2 extends JFrame {
 	
-	String url = "jdbc:mysql://localhost/vota";
+	String url = "jdbc:mysql://localhost/escola";
 	String username = "root";
 	String password = "root";
 
@@ -103,7 +103,7 @@ public class Votacoes_Anteriores_2 extends JFrame {
 		
 		JLabel lblVotaoX = new JLabel("Votação X*");
 		lblVotaoX.setFont(new Font("Tahoma", Font.PLAIN, 36));
-		lblVotaoX.setBounds(10, 79, 242, 84);
+		lblVotaoX.setBounds(10, 131, 242, 84);
 		contentPane.add(lblVotaoX);
 		
 		JLabel lblNewLabel = new JLabel("Consultar votações");
@@ -114,7 +114,7 @@ public class Votacoes_Anteriores_2 extends JFrame {
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setText("____________________________________________________________________________________________________________________________________________________________");
-		textPane.setForeground(new Color(255, 0, 0));
+		textPane.setForeground(new Color(0, 0, 0));
 		textPane.setEditable(false);
 		textPane.setBackground(SystemColor.menu);
 		textPane.setBounds(10, 34, 964, 20);
