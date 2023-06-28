@@ -1,4 +1,4 @@
-package projetoIntegrador;
+package design;
 
 import java.awt.EventQueue;
 
@@ -138,15 +138,20 @@ public class Votar extends JFrame implements ActionListener {
 		p.setDoubleBuffered(false);
 		p.setEnabled(false);
 		p.setLayout(new GridLayout(0, 1));
+		
+		JLabel labelTitulo = new JLabel();
+		labelTitulo.setFont(new Font("Tahoma", Font.PLAIN, 26));
+		labelTitulo.setBounds(615, 150, 252, 44);
+		contentPane.add(labelTitulo);
 
-
-
+		
 		for(String votacao:votacoes) {
 			botoes[i] = new JButton(votacao);
 			botoes[i].setBounds(240, y, 501, 58);
 			botoes[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//jogar o titulo no painelTitulo
+					
+					labelTitulo.setText(votacao);
 				}
 			});
 			botoes[i].setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -194,7 +199,7 @@ public class Votar extends JFrame implements ActionListener {
 						         // Execute a query
 						         System.out.println("Inserindo dados em tabela");
 						         
-						         String sql = "INSERT INTO voto (id_votacao,cpf_votante) VALUES (default,now(),)";
+						         String sql = "INSERT INTO voto (id_votacao,opcoes) VALUES (default,'sim')";
 						         
 						         stmt.executeUpdate(sql);  	  
 						      } catch (SQLException e1) {
@@ -213,7 +218,7 @@ public class Votar extends JFrame implements ActionListener {
 						         // Execute a query
 						         System.out.println("Inserindo dados em tabela");
 						         
-						         String sql = "INSERT INTO voto (id_votacao,cpf_votante) VALUES (default,now(),)";
+						         String sql = "INSERT INTO voto (id_votacao,opcoes) VALUES (default,'nao')";
 						         
 						         stmt.executeUpdate(sql);  	  
 						      } catch (SQLException e1) {
@@ -239,10 +244,6 @@ public class Votar extends JFrame implements ActionListener {
 		confirmar.setBounds(758, 556, 184, 44);
 		contentPane.add(confirmar);
 		
-		Panel painelTitulo = new Panel();
-		painelTitulo.setBounds(568, 150, 349, 69);
-		contentPane.add(painelTitulo);
-		
 		JTextPane textPane = new JTextPane();
 		textPane.setText("____________________________________________________________________________________________________________________________________________________________");
 		textPane.setForeground(Color.BLACK);
@@ -250,8 +251,9 @@ public class Votar extends JFrame implements ActionListener {
 		textPane.setBackground(SystemColor.menu);
 		textPane.setBounds(10, 42, 964, 20);
 		contentPane.add(textPane);
+		
+		
 
 
 	}
 }
-
