@@ -40,8 +40,10 @@ import javax.swing.border.SoftBevelBorder;
 import java.awt.ComponentOrientation;
 import javax.swing.ScrollPaneConstants;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.ScrollPane;
 import java.awt.Panel;
+import javax.swing.JLayeredPane;
 
 public class Votacoes_Anteriores_1 extends JFrame {
 	
@@ -51,8 +53,9 @@ public class Votacoes_Anteriores_1 extends JFrame {
 	String USER = "root";
 	String PASS = "root";
 	int i = 0;
-	List <String> votacoes = new ArrayList();
+	List <String> votacoes = new ArrayList();	
 	int y  = 150;
+	
 	
 
 	private JPanel contentPane;
@@ -78,8 +81,6 @@ public class Votacoes_Anteriores_1 extends JFrame {
 	 */
 	public Votacoes_Anteriores_1() {
 		
-		JList list = new JList();
-		
 		String QUERY = "SELECT titulo FROM votacao";
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		         Statement stmt = conn.createStatement();
@@ -94,6 +95,8 @@ public class Votacoes_Anteriores_1 extends JFrame {
 		      } catch (SQLException e1) {
 		         e1.printStackTrace();
 		      }
+		
+	
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 650);
@@ -110,7 +113,7 @@ public class Votacoes_Anteriores_1 extends JFrame {
 		contentPane.add(lblNewLabel);
 
 		JLabel lblVotaesDisponveis = new JLabel("VOTAÇÕES ANTERIORES");
-		lblVotaesDisponveis.setBounds(10, 103, 326, 36);
+		lblVotaesDisponveis.setBounds(29, 102, 326, 36);
 		lblVotaesDisponveis.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVotaesDisponveis.setFont(new Font("Tahoma", Font.BOLD, 20));
 		contentPane.add(lblVotaesDisponveis);
@@ -132,7 +135,7 @@ public class Votacoes_Anteriores_1 extends JFrame {
 		contentPane.add(lblNewLabel_2);
 
 		JButton[] botoes = new JButton[votacoes.size()];
-		
+				
 		JPanel p = new JPanel();
 		p.setDoubleBuffered(false);
 		p.setEnabled(false);
@@ -140,25 +143,29 @@ public class Votacoes_Anteriores_1 extends JFrame {
 		
 		for(String votacao:votacoes) {
 			botoes[i] = new JButton(votacao);
-			botoes[i].setBounds(240, y, 501, 58);
+			botoes[i].setBounds(300, y, 501, 58);
 			botoes[i].setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			botoes[i].setFont(new Font("Verdana", Font.PLAIN, 21));
+			
 			contentPane.add(botoes[i]);
 			p.add(botoes[i]);
 			p.add(new JLabel(""));
 			y+=75;
 			i++;
+			
+			
+			
+			
 		};
+		
 		
 		JScrollPane scrollPane_1 = new JScrollPane(p);
 		scrollPane_1.setBounds(62, 150, 400, 400);
 		contentPane.add(scrollPane_1);
 		
-		Panel quant = new Panel();
-		quant.setBounds(525, 150, 400, 400);
-		contentPane.add(quant);
-		quant.setLayout(new GridLayout(0,1));
-		
+
+	
+
 
 	}
 }
