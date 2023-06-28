@@ -1,46 +1,62 @@
-package design;
+package projeto;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
-import javax.swing.JButton;
+import java.awt.GridBagLayout;
+import java.awt.Rectangle;
+
 import javax.swing.SwingConstants;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
+import javax.swing.JButton;
+import javax.swing.JScrollBar;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.SystemColor;
-import javax.swing.JLabel;
-import java.util.Date;
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JScrollPane;
+import javax.swing.JToggleButton;
+import java.awt.FlowLayout;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Component;
+
+import javax.swing.border.SoftBevelBorder;
+import java.awt.ComponentOrientation;
+import javax.swing.ScrollPaneConstants;
+import java.awt.GridLayout;
+import java.awt.ScrollPane;
+import java.awt.Panel;
 
 public class Votacoes_Anteriores_1 extends JFrame {
+	
+	
 	
 	String DB_URL = "jdbc:mysql://127.0.0.1:3306/vota";
 	String USER = "root";
 	String PASS = "root";
 	int i = 0;
 	List <String> votacoes = new ArrayList();
-	List <String> datas = new ArrayList();
 	int y  = 150;
-	//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	//String dataAtual = dtf.format(LocalDateTime.now());
+	
 
 	private JPanel contentPane;
-
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	/**
 	 * Launch the application.
 	 */
@@ -62,94 +78,89 @@ public class Votacoes_Anteriores_1 extends JFrame {
 	 */
 	public Votacoes_Anteriores_1() {
 		
-		String QUERY = "SELECT titulo,data_final,data_votacao FROM votacao";
+		JList list = new JList();
+		
+		String QUERY = "SELECT titulo FROM votacao";
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		         Statement stmt = conn.createStatement();
 		         ResultSet rs = stmt.executeQuery(QUERY);
 		      ) {		      
 		         while(rs.next()){
-		        	
-		        	//String data_final = rs.getString("data_final");
-		        	//int ret = dataAtual.compareTo(data_final);
-		        	//if(ret < 0) {
+		        	 
+		            //MOSTRAR INFOS DA VOTAÇÃO
 		            System.out.printf(rs.getString("titulo")+ "\n");
 		            votacoes.add(rs.getString("titulo"));
-		            datas.add(rs.getString("data_votacao"));
-		        	//}
 		         }
 		      } catch (SQLException e1) {
 		         e1.printStackTrace();
 		      }
 		
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 650);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(240, 240, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JButton btnNewButton = new JButton("Filtrar pesquisa");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Filtrar filtrar = new Filtrar();
-				filtrar.setVisible(true);
-				dispose();
-				
-			}
-		});
-		btnNewButton.setForeground(new Color(0, 128, 192));
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setBounds(779, 68, 171, 39);
-		contentPane.add(btnNewButton);
-		
-		JButton[] botoes = new JButton[votacoes.size()];
-		int x = 15;
-		for(String votacao:votacoes) {
-			
-			botoes[i] = new JButton(votacao);
-			botoes[i].setBounds(x, y, 450, 57);
-			botoes[i].setHorizontalAlignment(SwingConstants.LEFT);
-			botoes[i].setFont(new Font("Tahoma", Font.PLAIN, 30));
-			contentPane.add(botoes[i]);
-			if (y== 450 ) {
-				x=500;
-				y = 75;
-			}
-			//p.add(botoes[i]);
-			y+=75;
-			i++;
-		};
-		
-		JButton voltar = new JButton("< Voltar");
-		voltar.addActionListener(new ActionListener() {
+
+		JLabel lblNewLabel = new JLabel("VOTAR");
+		lblNewLabel.setBounds(29, 13, 114, 36);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+		contentPane.add(lblNewLabel);
+
+		JLabel lblVotaesDisponveis = new JLabel("VOTAÇÕES ANTERIORES");
+		lblVotaesDisponveis.setBounds(10, 103, 326, 36);
+		lblVotaesDisponveis.setHorizontalAlignment(SwingConstants.CENTER);
+		lblVotaesDisponveis.setFont(new Font("Tahoma", Font.BOLD, 20));
+		contentPane.add(lblVotaesDisponveis);
+
+		JButton btnNewButton_1_1 = new JButton("<");
+		btnNewButton_1_1.setBounds(10, 555, 67, 56);
+		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Menu menu = new Menu();
 				menu.setVisible(true);
 				dispose();
-				
 			}
 		});
-		voltar.setHorizontalAlignment(SwingConstants.LEFT);
-		voltar.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		voltar.setBounds(10, 561, 162, 39);
-		contentPane.add(voltar);
+		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		contentPane.add(btnNewButton_1_1);
+
+		JLabel lblNewLabel_2 = new JLabel("_______________________________________________________________________________________________________________________");
+		lblNewLabel_2.setBounds(29, 49, 839, 30);
+		contentPane.add(lblNewLabel_2);
+
+		JButton[] botoes = new JButton[votacoes.size()];
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setText("____________________________________________________________________________________________________________________________________________________________");
-		textPane.setForeground(new Color(255, 0, 0));
-		textPane.setEditable(false);
-		textPane.setBackground(SystemColor.menu);
-		textPane.setBounds(10, 44, 964, 20);
-		contentPane.add(textPane);
+		JPanel p = new JPanel();
+		p.setDoubleBuffered(false);
+		p.setEnabled(false);
+		p.setLayout(new GridLayout(0, 1));// tentano mudar o layout para ver se adiciona outras linhas
 		
-		JLabel lblNewLabel = new JLabel("Consultar votações");
-		lblNewLabel.setForeground(Color.RED);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
-		lblNewLabel.setBounds(10, 11, 262, 31);
-		contentPane.add(lblNewLabel);
+		for(String votacao:votacoes) {
+			botoes[i] = new JButton(votacao);
+			botoes[i].setBounds(240, y, 501, 58);
+			botoes[i].setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+			botoes[i].setFont(new Font("Verdana", Font.PLAIN, 21));
+			contentPane.add(botoes[i]);
+			p.add(botoes[i]);
+			p.add(new JLabel(""));
+			y+=75;
+			i++;
+		};
+		
+		JScrollPane scrollPane_1 = new JScrollPane(p);
+		scrollPane_1.setBounds(62, 150, 400, 400);
+		contentPane.add(scrollPane_1);
+		
+		Panel quant = new Panel();
+		quant.setBounds(525, 150, 400, 400);
+		contentPane.add(quant);
+		quant.setLayout(new GridLayout(0,1));
+		
+
 	}
 }
+
+
