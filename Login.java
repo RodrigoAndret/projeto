@@ -36,7 +36,7 @@ public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JPasswordField senha;
-//	private MaskFormatter mascaraCpf;
+	private MaskFormatter mascaraCpf;
 	private JTextField cpf;
 
 	/**
@@ -78,8 +78,8 @@ public class Login extends JFrame {
 
 				String cpf_adms = "123";
 				String senha_adms = "adms";
-				String cpf_testando = cpf.getText();
-				String senha_testando = senha.getText();
+				String cpf_usuario = cpf.getText().replaceAll("-", "").replaceAll("/", "").replaceAll("\\.", "").replaceAll("\\s", "");
+				String senha_usuario = senha.getText();
 				boolean valido = false;
 
 				String QUERY = "SELECT cpf_usuario, senha FROM usuarios";
@@ -91,7 +91,7 @@ public class Login extends JFrame {
 				      ) {		      
 				         while(rs.next()){
 
-				            if((rs.getString("cpf_usuario").equals(cpf_testando)) && (rs.getString("senha").equals(senha_testando))) {
+				            if((rs.getString("cpf_usuario").equals(cpf_usuario)) && (rs.getString("senha").equals(senha_usuario))) {
 				            	valido = true;
 				            };
 
@@ -101,7 +101,7 @@ public class Login extends JFrame {
 				      }
 
 				if (valido == true) {
-					if ((cpf_testando.equals(cpf_adms)) && (senha_testando.equals(senha_adms))) {
+					if ((cpf_usuario.equals(cpf_adms)) && (senha_usuario.equals(senha_adms))) {
 						MenuAdm menuAdm = new MenuAdm();
 						menuAdm.setVisible(true);
 						dispose();
@@ -131,23 +131,18 @@ public class Login extends JFrame {
 		lblCpf_1.setBounds(167, 166, 230, 48);
 		contentPane.add(lblCpf_1);
 		
-//		// campo cpf
-//		try {
-//			mascaraCpf = new MaskFormatter("###.###.###-##");
-//		} catch (ParseException e1) {
-//			e1.printStackTrace();
-//		}
-//		
-//		// formatador do campo de cpf
-//		JFormattedTextField cpf = new JFormattedTextField(mascaraCpf);
-//		cpf.setBounds(244, 215, 383, 32);
-//		contentPane.add(cpf);
+		// campo cpf
+		try {
+			mascaraCpf = new MaskFormatter("###.###.###-##");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		
-		cpf = new JTextField();
-		cpf.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		// formatador do campo de cpf
+		JFormattedTextField cpf = new JFormattedTextField(mascaraCpf);
 		cpf.setBounds(86, 225, 390, 32);
 		contentPane.add(cpf);
-
+		
 		JLabel lblSenha_1 = new JLabel("Digite sua senha:");
 		lblSenha_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
 		lblSenha_1.setBounds(151, 317, 267, 39);
