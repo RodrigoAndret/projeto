@@ -1,4 +1,4 @@
-package projeto;
+package design;
 
 import java.awt.EventQueue;
 

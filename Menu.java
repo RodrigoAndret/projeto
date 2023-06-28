@@ -72,7 +72,7 @@ public class Menu extends JFrame {
 		JButton btnNewButton = new JButton("VOTAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Votar1 v1 = new Votar1();
+				Votar v1 = new Votar();
 				v1.setVisible(true);
 				dispose();
 			}

@@ -114,7 +114,7 @@ public class Criar1 extends JFrame {
 					         // Execute a query
 					         System.out.println("Inserindo dados em tabela");
 					         
-					         String sql = "INSERT INTO votacao (id_votacao,titulo,data_votacao,opcao1,opcao2,data_final) VALUES (default,'"+tema_votacao+"',now(),'"+opcao_1+"','"+opcao_2+"', '"+data_final+"')";
+					         String sql = "INSERT INTO votacao (id_votacao,titulo,opcao1,opcao2,data_final) VALUES (default,'"+tema_votacao+"','"+opcao_1+"','"+opcao_2+"', '"+data_final+"')";
 					         
 					         stmt.executeUpdate(sql);  	  
 					      } catch (SQLException e1) {

@@ -50,6 +50,13 @@ public class MenuAdm extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton_1_1 = new JButton("CONSULTAR VOTAÇÕES");
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Votacoes_Anteriores_1 votacoes_anteriores = new Votacoes_Anteriores_1();
+				votacoes_anteriores.setVisible(true);
+				dispose();
+			}
+		});
 		btnNewButton_1_1.setOpaque(true);
 		btnNewButton_1_1.setForeground(Color.WHITE);
 		btnNewButton_1_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 22));
