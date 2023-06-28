@@ -44,6 +44,8 @@ import java.awt.GridLayout;
 import java.awt.ScrollPane;
 import java.awt.Panel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextPane;
+import java.awt.SystemColor;
 
 public class Votar extends JFrame implements ActionListener {
 
@@ -105,10 +107,11 @@ public class Votar extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("VOTAR");
-		lblNewLabel.setBounds(29, 13, 114, 36);
+		JLabel lblNewLabel = new JLabel("Votar");
+		lblNewLabel.setForeground(new Color(0, 128, 64));
+		lblNewLabel.setBounds(0, 11, 92, 36);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		contentPane.add(lblNewLabel);
 
 		JLabel lblVotaesDisponveis = new JLabel("Votações disponíveis:");
@@ -128,10 +131,6 @@ public class Votar extends JFrame implements ActionListener {
 		});
 		btnNewButton_1_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(btnNewButton_1_1);
-
-		JLabel lblNewLabel_2 = new JLabel("_______________________________________________________________________________________________________________________");
-		lblNewLabel_2.setBounds(29, 49, 839, 30);
-		contentPane.add(lblNewLabel_2);
 
 		JButton[] botoes = new JButton[votacoes.size()];
 
@@ -243,6 +242,14 @@ public class Votar extends JFrame implements ActionListener {
 		Panel painelTitulo = new Panel();
 		painelTitulo.setBounds(568, 150, 349, 69);
 		contentPane.add(painelTitulo);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setText("____________________________________________________________________________________________________________________________________________________________");
+		textPane.setForeground(Color.BLACK);
+		textPane.setEditable(false);
+		textPane.setBackground(SystemColor.menu);
+		textPane.setBounds(10, 42, 964, 20);
+		contentPane.add(textPane);
 
 
 	}
