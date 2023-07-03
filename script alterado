@@ -1,0 +1,69 @@
+create database vota;
+use vota;
+
+create table votante (
+cpf_votante varchar(50),
+nome_votante varchar(50));
+
+alter table votante add primary key (cpf_votante);
+alter table votante modify column cpf_votante varchar(50) not null;
+alter table votante modify column nome_votante varchar(50) not null;
+
+create table criador (
+cpf_criador varchar(50),
+nome_criador varchar(50));
+
+desc criador;
+alter table criador modify column nome_criador varchar(50) not null;
+
+ALTER TABLE criador
+ADD PRIMARY KEY (cpf_criador);
+
+create table votacao (
+id_votacao int auto_increment not null primary key,
+titulo varchar(50),
+descricao varchar(50),
+cpf_criador varchar(50),
+data_votacao date,
+foreign key (cpf_criador) references criador(cpf_criador));
+
+desc votacao;
+alter table votacao modify column titulo varchar(50) not null;
+
+create table voto (
+id_voto int auto_increment not null primary key,
+id_votacao int not null,
+cpf_votante varchar(50),
+data_voto date,
+foreign key (cpf_votante) references votante(cpf_votante));
+
+create table usuarios (
+cpf_usuario varchar(50) not null primary key,
+nome_usuario varchar(50) not null);
+
+select * from usuarios;
+
+alter table usuarios add column senha varchar(50);
+alter table usuarios drop column nome_usuario;
+
+alter table votacao add column opcao1 varchar(50);
+alter table votacao add column opcao2 varchar(50);
+alter table votacao add column data_final date;
+alter table votacao drop column descricao;
+
+alter table voto drop column id_voto;
+
+alter table voto drop column data_voto;
+
+alter table voto add column opcoes varchar(50);
+
+alter table votacao MODIFY titulo varchar(50) not null after id_votacao;
+
+alter table votacao add id_votacao int auto_increment not null primary key AFTER titulo;
+
+desc votacao;
+
+select * from voto;
+
+ALTER TABLE voto
+DROP FOREIGN KEY voto_ibfk_2;
