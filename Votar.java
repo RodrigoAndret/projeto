@@ -46,6 +46,7 @@ import java.awt.Panel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 import java.awt.SystemColor;
+import javax.swing.JTextField;
 
 public class Votar extends JFrame{
 
@@ -59,9 +60,13 @@ public class Votar extends JFrame{
 	List <String> votacoes = new ArrayList();
 	int y  = 150;
 	String votacao_selecionada = "";
+	String QUERY = "";
+	int id_votacao = 0;
 	
 	
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -84,9 +89,7 @@ public class Votar extends JFrame{
 	 */
 	public Votar() {
 
-		JList list = new JList();
-
-		String QUERY = "SELECT titulo FROM votacao";
+		QUERY = "SELECT titulo FROM votacao";
 		try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(QUERY);
@@ -102,7 +105,7 @@ public class Votar extends JFrame{
 		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 650);
+		setBounds(450,250, 1000, 650);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -198,9 +201,23 @@ public class Votar extends JFrame{
 		confirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				;
+				QUERY = "SELECT id_votacao FROM votacao where titulo = '" + votacao_selecionada + "'";
 				
-				
+				try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+				         Statement stmt = conn.createStatement();
+				         ResultSet rs = stmt.executeQuery(QUERY);
+				      ) {		      
+				         while(rs.next()){
+				            //MOSTRAR INFOS DA VOTAÇÃO
+				        	System.out.println(votacao_selecionada);
+				            System.out.printf(rs.getInt("id_votacao")+ "\n");
+				            id_votacao = (rs.getInt("id_votacao"));
+				            
+				         }
+				      } catch (SQLException e1) {
+				         e1.printStackTrace();
+				      }
+		
 				
 					if(sim.isSelected()==true) {
 						try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -211,7 +228,7 @@ public class Votar extends JFrame{
 						         
 						         
 						         
-						         String sql = "INSERT INTO voto (id_votacao,opcoes) VALUES ('"+i+"','sim')";
+						         String sql = "INSERT INTO voto (id_votacao,opcoes) VALUES ('"+id_votacao+"','sim')";
 						         
 						         stmt.executeUpdate(sql);  	  
 						      } catch (SQLException e1) {
@@ -230,9 +247,9 @@ public class Votar extends JFrame{
 						         // Execute a query
 						         System.out.println("Inserindo dados em tabela");
 						         
-						         String sql = "INSERT INTO voto (id_votacao,opcoes) VALUES ("+i+",'nao')";
+						         QUERY = "INSERT INTO voto (id_votacao,opcoes) VALUES ("+id_votacao+",'nao')";
 						         
-						         stmt.executeUpdate(sql);  	  
+						         stmt.executeUpdate(QUERY);  	  
 						      } catch (SQLException e1) {
 						         e1.printStackTrace();
 						      } 
@@ -247,7 +264,7 @@ public class Votar extends JFrame{
 					}		
 				}
 				
-			});
+		});
 		confirmar.setOpaque(true);
 		confirmar.setForeground(new Color(51, 51, 51));
 		confirmar.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -263,6 +280,26 @@ public class Votar extends JFrame{
 		textPane.setBackground(SystemColor.menu);
 		textPane.setBounds(10, 42, 964, 20);
 		contentPane.add(textPane);
+		
+		JLabel lblNewLabel_1 = new JLabel("CPF:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(626, 69, 50, 36);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Senha:");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1_1.setBounds(626, 112, 62, 36);
+		contentPane.add(lblNewLabel_1_1);
+		
+		textField = new JTextField();
+		textField.setBounds(686, 69, 212, 23);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(686, 115, 212, 23);
+		contentPane.add(textField_1);
 		
 		
 
