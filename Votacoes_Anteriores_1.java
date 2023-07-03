@@ -53,8 +53,10 @@ public class Votacoes_Anteriores_1 extends JFrame {
 	int i = 0;
 	List <String> votacoes = new ArrayList();
 	int y  = 150;
+	String votacao_selecionada = "";
+	String QUERY = "";
+	int id_votacao = 0;
 	
-
 	private JPanel contentPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	/**
@@ -131,6 +133,10 @@ public class Votacoes_Anteriores_1 extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("_______________________________________________________________________________________________________________________");
 		lblNewLabel_2.setBounds(29, 49, 839, 30);
 		contentPane.add(lblNewLabel_2);
+		
+		JLabel votacao_atual = new JLabel("");
+		votacao_atual.setBounds(648, 170, 148, 30);
+		contentPane.add(votacao_atual);
 
 		JButton[] botoes = new JButton[votacoes.size()];
 		
@@ -144,6 +150,31 @@ public class Votacoes_Anteriores_1 extends JFrame {
 			botoes[i].setBounds(240, y, 501, 58);
 			botoes[i].setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 			botoes[i].setFont(new Font("Verdana", Font.PLAIN, 21));
+			botoes[i].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					votacao_selecionada = votacao;
+					votacao_atual.setText(votacao_selecionada);
+				
+					String QUERY = "SELECT id_votacao FROM votacao where titulo = '" + votacao_selecionada + "'";
+					
+					try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+					         Statement stmt = conn.createStatement();
+					         ResultSet rs = stmt.executeQuery(QUERY);
+					      ) {		      
+					         while(rs.next()){
+					            
+					        	System.out.println(votacao_selecionada);
+					            System.out.printf(rs.getInt("id_votacao")+ "\n");
+					            id_votacao = (rs.getInt("id_votacao"));
+					            
+					            
+					         }
+					      } catch (SQLException e1) {
+					         e1.printStackTrace();
+					      }
+					
+				}
+			});
 			contentPane.add(botoes[i]);
 			p.add(botoes[i]);
 			p.add(new JLabel(""));
@@ -155,12 +186,7 @@ public class Votacoes_Anteriores_1 extends JFrame {
 		scrollPane_1.setBounds(62, 150, 400, 400);
 		contentPane.add(scrollPane_1);
 		
-		Panel quant = new Panel();
-		quant.setBounds(525, 150, 400, 400);
-		contentPane.add(quant);
-		quant.setLayout(new GridLayout(0,1));
+		
 		
 	}
 }
-
-
